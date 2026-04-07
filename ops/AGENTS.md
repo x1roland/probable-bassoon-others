@@ -17,6 +17,18 @@ Before doing anything else:
 
 Don't ask permission. Just do it.
 
+## SRE Operations
+
+### Cron 变更规范（必须遵守）
+
+任何对 Cron 任务的新增、修改、删除操作，必须同步更新 `memory/cron-registry.md`。
+这是硬性规则，不遵守就是故障。
+
+步骤：
+1. 执行 cron 变更（add/update/remove）
+2. 立即更新 cron-registry.md（汇总表 + 详情）
+3. 如有新增/删除，通知 THE ONE
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:

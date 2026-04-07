@@ -1,0 +1,28 @@
+# OpenClaw internal
+.openclaw/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Secrets (just in case)
+.env
+*.key
+*.pem

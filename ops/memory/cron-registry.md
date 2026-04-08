@@ -1,6 +1,7 @@
 # Cron 任务档案
 
 > 由 ops 维护，最后更新：2026-04-08
+> ⚠️ 发现异常：Release 追踪任务已禁用 425 天，超过 30 天阈值
 
 ## 汇总
 
@@ -12,7 +13,7 @@
 | 4 | 每日凌晨记日记 | 每天 02:08 | ✅ | 遍历所有 agent 写日记 | 无 |
 | 5 | Workspace Git 备份 | 每天 03:17 | ✅ | `scripts/backup-workspace.bat` | 无 |
 | 6 | 配置与凭证备份 | 每天 03:34 | ✅ | `openclaw backup` + cleanup 脚本 | 无 |
-| 7 | Release 追踪 | 每周一 09:00 | ❌ 禁用 | GitHub releases 检查 | Telegram |
+| 7 | Release 追踪 | 每周一 09:00 | ⚠️ 超期禁用 | GitHub releases 检查 | Telegram |
 
 ## 详情
 
@@ -60,8 +61,9 @@
 ### 7. OpenClaw Release 追踪
 - **ID:** 875e85e4-b1fd-470e-bec2-96f1715f8312
 - **类型:** isolated / agentTurn
-- **状态:** 禁用，THE ONE 考虑中
+- **状态:** ⚠️ 超期禁用（已禁用 425 天，远超 30 天阈值）
 - **说明:** 检查 GitHub 新 release，关注特定修复方向
+- **提醒:** 建议清理或重新启用此任务
 
 ## 维护规则
 

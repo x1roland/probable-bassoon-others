@@ -9,13 +9,13 @@
 
 | # | 名称 | 调度 | 状态 | 脚本/说明 | 通知 |
 |---|------|------|------|----------|------|
-| 1 | **Cron 每日巡检** | 每天 04:23 | ⚠️ | 状态检查+配置变更检测+档案同步 | 飞书/TG（仅异常或变更时） |
+| 1 | **Cron 每日巡检** | 每天 04:23 | ✅ | 状态检查+配置变更检测+档案同步 | 飞书/TG（仅异常或变更时） |
 | 2 | 遗留问题检查 | 每 ~71min | ✅ | `scripts/check-issues.ps1` | Telegram（仅异常时） |
 | 3 | folo-health-check | 每小时 ×2（:07,:37） | ✅ | `projects/folo/health.ps1` | Telegram（仅异常时） |
 | 4 | 每日凌晨记日记 | 每天 02:08 | ✅ | 遍历所有 agent 写日记 | 无 |
 | 5 | Workspace Git 备份 | 每天 03:17 | ✅ | `scripts/backup-workspace.bat` | 无 |
 | 6 | 配置与凭证备份 | 每天 03:34 | ✅ | `openclaw backup` + cleanup 脚本 | 无 |
-| 7 | Release 追踪 | 每周一 09:00 | ⚠️ 超期禁用 | GitHub releases 检查 | Telegram |
+| 7 | Release 追踪 | 每周一 09:00 | ⚠️ 超期禁用（32.7天） | GitHub releases 检查 | Telegram |
 
 ## 详情
 
@@ -25,7 +25,7 @@
 - **类型:** isolated / agentTurn
 - **通知:** 飞书优先，失败降级 Telegram 5544196119
 - **说明:** 每日校验任务状态+配置变更检测，自动同步 cron-registry.md，异常或变更时通知
-- **⚠️ 当前状态:** lastRunStatus="error", consecutiveErrors=1
+- **✅ 当前状态:** lastRunStatus="ok", consecutiveErrors=0
 
 ### 2. 遗留问题检查
 - **ID:** 91b92420-7cc8-48ce-9b96-28b038582aed
@@ -77,7 +77,13 @@
 
 ---
 
-**巡检日志 - 2026-04-09 05:34**
-- 发现异常：Cron 每日巡检任务自身 lastRunStatus="error", consecutiveErrors=1
-- 发现异常：Release 追踪任务已禁用 32.7 天，超过 30 天阈值
-- 建议：需要检查 Cron 巡检任务异常原因，并决定 Release 追踪任务的处理方案
+**巡检日志 - 2026-04-10 16:32**
+- ✅ Cron 每日巡检任务状态正常
+- ⚠️ 发现：Release 追踪任务已禁用 32.7 天，超过 30 天阈值
+- 📝 建议：Release 追踪任务需处理（清理或重新启用）
+- 📊 总体：6/7 个任务运行正常，1 个任务需要人工处理
+
+**维护备注**
+- 最后更新：2026-04-10
+- 检查结果：除 Release 追踪任务外，所有任务运行正常
+- 待处理：建议决定 Release 追踪任务的处理方案

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-13T01:21:13.884Z",
+  "entries": {
+    "memory:memory/2026-04-08.md:1:30": {
+      "key": "memory:memory/2026-04-08.md:1:30",
+      "path": "memory/2026-04-08.md",
+      "startLine": 1,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "# 2026-04-08 日记 ## ops 身份确立与 SRE 体系搭建 ### 身份定义 - 确认 ops 角色为**全栈 SRE** - IDENTITY.md 优化： - Creature →「系统守护者 / AI 伙伴」 - Responsibilities 结构化为 6 大领域（可靠性保障、发布工程、故障管理、自动化、容量性能、数据安全） - 字段名统一为英文 ### Cron 维护体系 - 建立档案 `memory/cron-registry.md`：顶部汇总表 + 底部详情 - 新建 **Cron 每日巡检**任务（ID: b29205c7），每天 04:23 运行 - 功能：状态检查 + 配置变更检测 + 档案同步 + 禁用超期提醒 - 通知策略：飞书优先，失败降级 Telegram - 三层维护机制： 1. 即时同步（AGENTS.md 写入操作规范：改即记） 2. 每日巡检（自动校验+变更检测） 3. 无需额外每周巡检（每日已覆盖） ### 每日日记任务改造 - 从 main/systemEvent → isolated/agentTurn，覆盖 5 个 agent（main、coder、tester、ops、social） - agentId 改为 ops，delivery 设为 none - **发现问题**：单任务处理 5 个 agent 导致上下文窗口溢出（`model_context_window_exceeded`） - 读完 main 历史 + 写完 main 日记 + 读 coder 历史 → 超",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6968317532568955,
+      "maxScore": 0.6968317532568955,
+      "firstRecalledAt": "2026-04-13T01:21:13.884Z",
+      "lastRecalledAt": "2026-04-13T01:21:13.884Z",
+      "queryHashes": [
+        "bc106f6145df"
+      ],
+      "recallDays": [
+        "2026-04-13"
+      ],
+      "conceptTags": [
+        "identity.md",
+        "memory/cron-registry.md",
+        "agents.md",
+        "main/systemevent",
+        "isolated/agentturn",
+        "model-context-window-exceeded",
+        "日记",
+        "ops"
+      ]
+    },
+    "memory:memory/2026-04-08.md:25:52": {
+      "key": "memory:memory/2026-04-08.md:25:52",
+      "path": "memory/2026-04-08.md",
+      "startLine": 25,
+      "endLine": 52,
+      "source": "memory",
+      "snippet": "- **发现问题**：单任务处理 5 个 agent 导致上下文窗口溢出（`model_context_window_exceeded`） - 读完 main 历史 + 写完 main 日记 + 读 coder 历史 → 超过 204k - 仅成功写入了 main 的日记，ops/coder 未被处理 - 待解决：拆分为 5 个独立任务或换更大上下文模型 ### 经验教训 - isolated agentTurn 默认 delivery 是 **announce**，会污染主会话，必须显式设 `delivery.mode: \"none\"` - 上下文窗口溢出不是看单次 input tokens，而是整个 session 累积的多轮工具调用 - glm-5-turbo 在 isolated session 里处理多 agent 任务时 token 消耗增长很快 ### SRE 知识沉淀 - 创建 `20-Domain/SRE/Home.md`，沉淀 SRE 核心概念 - 与 THE ONE 共同维护 ### 文件变更清单 - `IDENTITY.md` — 多次编辑（Creature、Responsibilities） - `MEMORY.md` — 创建 - `AGENTS.md` — 新增 SRE Operations / Cron 变更规范 - `memory/cron-registry.md` — 创建，多次更新 - `memory/2026-04-08.md` — 创建（本文件） - `20-Domain/SRE/Home.md` — 创建 ###",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6194298935799111,
+      "maxScore": 0.6194298935799111,
+      "firstRecalledAt": "2026-04-13T01:21:13.884Z",
+      "lastRecalledAt": "2026-04-13T01:21:13.884Z",
+      "queryHashes": [
+        "bc106f6145df"
+      ],
+      "recallDays": [
+        "2026-04-13"
+      ],
+      "conceptTags": [
+        "model-context-window-exceeded",
+        "ops/coder",
+        "delivery.mode",
+        "glm-5-turbo",
+        "20-domain/sre/home.md",
+        "identity.md",
+        "memory.md",
+        "agents.md"
+      ]
+    }
+  }
+}

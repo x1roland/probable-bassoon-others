@@ -1,0 +1,1 @@
+{"type":"memory.recall.recorded","timestamp":"2026-04-13T01:21:13.884Z","query":"日记 cron 问题 上下文窗口溢出","resultCount":2,"results":[{"path":"memory/2026-04-08.md","startLine":1,"endLine":30,"score":0.6968317532568955},{"path":"memory/2026-04-08.md","startLine":25,"endLine":52,"score":0.6194298935799111}]}

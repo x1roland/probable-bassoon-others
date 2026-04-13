@@ -1,6 +1,6 @@
 # Cron 任务档案
 
-> 由 ops 维护，最后更新：2026-04-12
+> 由 ops 维护，最后更新：2026-04-13
 > ⚠️ 发现异常：
 > 1. Release 追踪任务已禁用 >30 天（THE ONE 指示先忽略）
 
@@ -20,7 +20,7 @@
 
 ### 1. Cron 每日巡检 ⭐
 - **ID:** b29205c7-9a7d-45e1-a148-46dffa642470
-- **模型:** zai/glm-5-turbo
+- **模型:** zai/glm-5.1
 - **类型:** isolated / agentTurn
 - **通知:** 飞书（target=ou_eb00ece2dfc03003d2db37d5acbd41ec）
 - **说明:** 每日校验任务状态+配置变更检测，自动同步 cron-registry.md，异常或变更时通知
@@ -29,7 +29,7 @@
 
 ### 2. 遗留问题检查
 - **ID:** 91b92420-7cc8-48ce-9b96-28b038582aed
-- **模型:** zai/glm-5-turbo
+- **模型:** zai/glm-5.1
 - **脚本:** `C:\Users\fanci\.openclaw\scripts\check-issues.ps1`
 - **通知:** Telegram → 5544196119（仅在有问题时）
 - **类型:** isolated / agentTurn
@@ -37,7 +37,7 @@
 
 ### 3. folo-health-check
 - **ID:** 5c5c57d9-326f-49ce-9c34-abf5a85026ea
-- **模型:** zai/glm-5-turbo
+- **模型:** zai/glm-5.1
 - **脚本:** `C:\Users\fanci\projects\folo\health.ps1`
 - **通知:** Telegram → 5544196119（仅在 recovered/failed 时）
 - **类型:** isolated / agentTurn
@@ -45,17 +45,19 @@
 
 ### 4. 每日凌晨记日记
 - **ID:** a5e71713-c3fb-466e-ab9d-3d8b81c74905
-- **模型:** zai/glm-5-turbo
+- **模型:** openai-codex/gpt-5.4
 - **类型:** isolated / agentTurn
-- **说明:** 遍历所有 agent（main、coder、tester、ops、social），读取各自主会话历史，写入各 workspace 下的 memory/YYYY-MM-DD.md
+- **说明:** 遍历所有 agent（换 GPT-5.4 解决 5 agent 上下文溢出问题）（main、coder、tester、ops、social），读取各自主会话历史，写入各 workspace 下的 memory/YYYY-MM-DD.md
 
 ### 5. Workspace Git 备份
+- **模型:** zai/glm-5-turbo
 - **ID:** 74d31fe4-e274-413c-99b4-eb9593a12e7c
 - **脚本:** `~/.openclaw/scripts/backup-workspace.bat`
 - **类型:** isolated / agentTurn
 - **说明:** workspace 推送到 GitHub 私有仓库
 
 ### 6. 配置与凭证备份
+- **模型:** zai/glm-5-turbo
 - **ID:** f6fd082a-03c0-4118-b809-11b653ab4d1b
 - **脚本:** `openclaw backup create` + `~/.openclaw/scripts/cleanup-backups.ps1`
 - **类型:** isolated / agentTurn

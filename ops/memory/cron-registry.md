@@ -1,7 +1,7 @@
 # Cron 任务档案
 
-> 由 ops 维护，最后更新：2026-04-22
-> ⚠️ 2026-04-22 巡检：每日凌晨记日记 consecutiveErrors=3；Release 追踪已从系统删除
+> 由 ops 维护，最后更新：2026-04-24
+> ⚠️ 2026-04-24 巡检：每日凌晨记日记 consecutiveErrors=1（超时 300s）；其余正常
 
 ## 汇总
 
@@ -23,7 +23,7 @@
 - **类型:** isolated / agentTurn
 - **通知:** 飞书(target=ou_eb00ece2dfc03003d2db37d5acbd41ec)
 - **说明:** 每日校验任务状态+配置变更检测,自动同步 cron-registry.md,异常或变更时通知
-- **✅ 当前状态:** 正常,consecutiveErrors=0
+- **⚠️ 当前状态:** consecutiveErrors=1,上次超时(300s)
 - **修复记录(2026-04-11):** 之前因未明确指定飞书 target 导致 isolated session 发消息失败,已修正 prompt 明确指定 channel+target
 
 ### 2. 遗留问题检查
@@ -67,6 +67,13 @@
 - **状态:** ❌ 已从系统删除（2026-04-22 确认）
 - **最后修改:** 2026-04-16
 - **说明:** 先前为 disabled，本次巡检确认已彻底删除
+
+**巡检日志 - 2026-04-23 20:23 UTC (2026-04-24 04:23 CST)**
+- ❌ 每日凌晨记日记：consecutiveErrors=1，超时 300s（之前连续3次错误后恢复过，现在再次出错）
+- ✅ 其余 5 个启用任务正常，consecutiveErrors=0
+- ℹ️ Release 追踪：disabled 28 天，未达 30 天阈值
+- 📊 任务匹配度：list 7 个(6启用+1禁用) = 档案一致，无新增/删除
+- 🔔 已通知飞书
 
 **巡检日志 - 2026-04-21 22:41 UTC (2026-04-22 06:41 CST)**
 - ❌ 每日凌晨记日记：consecutiveErrors=3，持续超时（上次=2，恶化中）

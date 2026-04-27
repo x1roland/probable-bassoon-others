@@ -3,6 +3,7 @@
 > 由 ops 维护，最后更新：2026-04-27
 > ✅ 2026-04-27 巡检：所有启用任务正常；日记任务已恢复；Release 追踪档案状态修正
 > 🔧 2026-04-27 15:54 CST：按 THE ONE 要求，将“每日凌晨记日记”模型切换为 deepseek/deepseek-v4-pro
+> 🔧 2026-04-27 22:18 CST：接手 folo-push 定时系统，启用 4 个任务并纳入维护
 
 ## 汇总
 
@@ -14,6 +15,10 @@
 | 4 | 每日凌晨记日记 | 每天 02:08 | ✅ | 遍历所有 agent 写日记 | 无 |
 | 5 | Workspace Git 备份 | 每天 03:17 | ✅ | `scripts/backup-workspace.bat` | 无 |
 | 6 | OpenClaw 配置与凭证备份 | 每天 03:34 | ✅ | `openclaw backup` + cleanup 脚本 | 无 |
+| 8 | **folo-morning-digest** | 每天 07:23 | ✅ | folo 晨报，补收昨夜+今晨 | 飞书→Telegram |
+| 9 | **folo-instant-check** | 08:11/12:11/16:11/20:11 | ✅ | folo 即时推送检测 | 飞书→Telegram |
+| 10 | **folo-daily-digest** | 每天 19:33 | ✅ | folo 晚报 | 飞书→Telegram |
+| 11 | **folo-weekly-digest** | 每周日 07:11 | ✅ | folo 周报 | 飞书→Telegram |
 
 
 ## 详情
@@ -65,6 +70,50 @@
 - **脚本:** `openclaw backup create` + `~/.openclaw/scripts/cleanup-backups.ps1`
 - **类型:** isolated / agentTurn
 - **说明:** OpenClaw 配置备份,保留最近 15 天 + 每月 1/16 日快照
+
+### 8. folo-morning-digest
+- **ID:** 78649a76-470b-4d09-b5f9-3e8a74fddf93
+- **模型:** zai/glm-5.1
+- **类型:** isolated / agentTurn (thinking: adaptive)
+- **超时:** 1800s
+- **配置:** `C:\Users\fanci\projects\folo-push\config\folo-push-config.json`
+- **状态:** `C:\Users\fanci\projects\folo-push\state\folo-push-state.json`
+- **说明:** folo 晨报，优先补收昨夜晚落盘内容，再补今晨内容
+- **通知:** 飞书(feishuTarget) → Telegram(telegramTarget) 兜底
+- **纳入维护时间:** 2026-04-27
+
+### 9. folo-instant-check
+- **ID:** 1bd3c10a-b7f7-4d1b-8ed2-6abd5ad17adf
+- **模型:** zai/glm-5.1
+- **类型:** isolated / agentTurn (thinking: adaptive)
+- **超时:** 900s
+- **配置:** 同上
+- **状态:** 同上
+- **说明:** 即时检测高优先级内容，分数 ≥80 才推送，每天 4 次
+- **通知:** 同上
+- **纳入维护时间:** 2026-04-27
+
+### 10. folo-daily-digest
+- **ID:** 5b685768-924b-415f-b962-ef4a3ffb312f
+- **模型:** zai/glm-5.1
+- **类型:** isolated / agentTurn (thinking: adaptive)
+- **超时:** 1800s
+- **配置:** 同上
+- **状态:** 同上
+- **说明:** folo 晚报，汇总当天值得看的内容，必要时补收录
+- **通知:** 同上
+- **纳入维护时间:** 2026-04-27
+
+### 11. folo-weekly-digest
+- **ID:** 2a0fb379-df8f-41ac-975e-1d1f2cf9dfd1
+- **模型:** zai/glm-5.1
+- **类型:** isolated / agentTurn (thinking: adaptive)
+- **超时:** 2400s
+- **配置:** 同上
+- **状态:** 同上
+- **说明:** folo 周报，总结最近 7 天并补强未及时纳入的高价值条目
+- **通知:** 同上
+- **纳入维护时间:** 2026-04-27
 
 ### 7. OpenClaw Release 追踪
 - **ID:** 875e85e4-b1fd-470e-bec2-96f1715f8312

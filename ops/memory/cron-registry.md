@@ -1,7 +1,8 @@
 # Cron 任务档案
 
-> 由 ops 维护，最后更新：2026-04-25
-> ⚠️ 2026-04-25 巡检：每日凌晨记日记 consecutiveErrors=1（超时 300s，未恶化）；其余正常
+> 由 ops 维护，最后更新：2026-04-27
+> ✅ 2026-04-27 巡检：所有启用任务正常；日记任务已恢复；Release 追踪档案状态修正
+> 🔧 2026-04-27 15:54 CST：按 THE ONE 要求，将“每日凌晨记日记”模型切换为 deepseek/deepseek-v4-pro
 
 ## 汇总
 
@@ -12,7 +13,7 @@
 | 3 | folo-health-check | 每小时 ×2(:07,:37) | ✅ | `projects/folo/health.ps1` | Telegram(仅异常时) |
 | 4 | 每日凌晨记日记 | 每天 02:08 | ✅ | 遍历所有 agent 写日记 | 无 |
 | 5 | Workspace Git 备份 | 每天 03:17 | ✅ | `scripts/backup-workspace.bat` | 无 |
-| 6 | 配置与凭证备份 | 每天 03:34 | ✅ | `openclaw backup` + cleanup 脚本 | 无 |
+| 6 | OpenClaw 配置与凭证备份 | 每天 03:34 | ✅ | `openclaw backup` + cleanup 脚本 | 无 |
 
 
 ## 详情
@@ -44,9 +45,12 @@
 
 ### 4. 每日凌晨记日记
 - **ID:** a5e71713-c3fb-466e-ab9d-3d8b81c74905
-- **模型:** openai-codex/gpt-5.4
+- **模型:** deepseek/deepseek-v4-pro
 - **类型:** isolated / agentTurn
-- **说明:** 遍历所有 agent(换 GPT-5.4 解决 5 agent 上下文溢出问题)(main、coder、tester、ops、social),读取各自主会话历史,写入各 workspace 下的 memory/YYYY-MM-DD.md
+- **说明:** 遍历所有 agent(main、coder、tester、ops、social),读取各自主会话历史,写入各 workspace 下的 memory/YYYY-MM-DD.md
+- **变更记录:**
+  - 2026-04-27 15:54 CST：按 THE ONE 要求，从 openai-codex/gpt-5.4 切换到 deepseek/deepseek-v4-pro
+  - 之前曾切到 GPT-5.4 以缓解 5 agent 场景下的上下文溢出问题，后续需继续观察 deepseek-v4-pro 表现
 
 ### 5. Workspace Git 备份
 - **模型:** zai/glm-5-turbo
@@ -64,9 +68,9 @@
 
 ### 7. OpenClaw Release 追踪
 - **ID:** 875e85e4-b1fd-470e-bec2-96f1715f8312
-- **状态:** ❌ 已从系统删除（2026-04-22 确认）
+- **状态:** ⏸️ 已禁用（系统仍存在）
 - **最后修改:** 2026-04-16
-- **说明:** 先前为 disabled，本次巡检确认已彻底删除
+- **说明:** disabled 状态，2026-04-27 确认系统仍存在（之前误标为已删除）
 
 **巡检日志 - 2026-04-25 01:06 UTC (2026-04-25 09:06 CST)**
 - ⚠️ 每日凌晨记日记：consecutiveErrors=1，超时 300s（与昨日相同，未恶化）
@@ -101,6 +105,14 @@
 - ❌ 每日凌晨记日记:agent 无响应,consecutiveErrors=1
 - ✅ 其余 4 个任务正常,consecutiveErrors=0
 - 📊 任务匹配度:6/6 一致 + 1 已删除归档,无新增/删除任务
+- 🔔 已通知飞书
+
+**巡检日志 - 2026-04-26 20:30 UTC (2026-04-27 04:30 CST)**
+- ✅ 6/6 启用任务全部正常，consecutiveErrors=0
+- 🎉 每日凌晨记日记已恢复（上次 consecutiveErrors=1，现归零）
+- ⚠️ Release 追踪：档案误标为"已删除"，实际系统仍存在（disabled），已修正
+- ℹ️ 任务6名称更新为"OpenClaw 配置与凭证备份"
+- 📊 任务匹配度：7/7 一致，无新增/删除
 - 🔔 已通知飞书
 
 ## 维护规则
